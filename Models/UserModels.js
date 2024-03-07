@@ -5,10 +5,10 @@ let User = class {
   username;
   email;
   password;
-  constructor({ email, username, password}) {
+  constructor({ email, username, password }) {
     this.email = email;
     this.username = username;
-  
+
     this.password = password;
   }
 
@@ -18,10 +18,9 @@ let User = class {
         this.password,
         Number(process.env.SALT) // here in hash(password, hashit 10times)
       );
-
+      // nndsgcd
       // creating object of userSchema
       const userObj = new UserSchema({
-       
         email: this.email,
         password: hashedPassword,
         username: this.username,
@@ -62,19 +61,19 @@ let User = class {
     });
   }
 
-
-  static findUserWithLoginId({loginId}){
-    return new Promise(async(resolve,reject)=>{
-        try {
-            const userDb= await UserSchema.findOne({
-                $or:[{username:loginId}]
-            });
-            if(!userDb) reject("User does not found in db , Go and register first");
-            resolve(userDb);
-        } catch (error) {
-            reject(error);
-        }
-    })
+  static findUserWithLoginId({ loginId }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const userDb = await UserSchema.findOne({
+          $or: [{ username: loginId }],
+        });
+        if (!userDb)
+          reject("User does not found in db , Go and register first");
+        resolve(userDb);
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 };
 
